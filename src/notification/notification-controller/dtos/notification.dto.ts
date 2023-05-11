@@ -38,6 +38,11 @@ export class NotificationDTO {
  
     setDataCriacao(){
         this.dateCreated = new Date(Date.now());
+        this.dateUpdated = null;
+    }
+
+    setDataAtualizacao(){
+        this.dateUpdated = new Date(Date.now());
     }
 
     getApp(){

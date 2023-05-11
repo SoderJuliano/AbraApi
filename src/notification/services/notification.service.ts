@@ -14,9 +14,11 @@ export class NotificationService {
     }
 
     async createNotification(notification: NotificationDTO): Promise<NotificationDTO> {
-        notification.setDataCriacao();
-        const newNotification = new this.notificationModel(notification);
-        await newNotification.save();
-        return notification;
+        const newNotification = new NotificationDTO();
+        newNotification.from(notification);
+        newNotification.setDataCriacao();
+        const newn = new this.notificationModel(newNotification);
+        await newn.save();
+        return newNotification;
     }
 }

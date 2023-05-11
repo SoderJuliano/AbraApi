@@ -19,6 +19,13 @@ export class NotificationDTO {
     @IsString()
     appUrl: string;
 
+    /**
+     * The key needed to read this notification.
+     * Can be used ids, emails or whatever you want as a notification opener key
+     * @example '!@ExempleKey'
+     */
+    key: string;
+
     dateCreated: Date;
 
     dateUpdated: Date;
@@ -30,6 +37,31 @@ export class NotificationDTO {
     content: string;
  
     setDataCriacao(){
-        this.dateCreated = new Date(moment().format('yyyy-MM-DD:hh:mm:ss'));
+        this.dateCreated = new Date(Date.now());
+    }
+
+    getApp(){
+        return  this.app;
+    }
+    getAppUrl(){
+        return this.appUrl;
+    }
+    
+    getDateCreated(){
+        return this.dateCreated;
+    }
+
+    getDateUpdated(){
+        return this.dateUpdated;
+    }
+
+    getContent(){
+        return this.content;
+    }
+
+    from(newn: NotificationDTO){
+        this.app = newn.app;
+        this.appUrl = newn.appUrl;
+        this.content = newn.content;
     }
 }

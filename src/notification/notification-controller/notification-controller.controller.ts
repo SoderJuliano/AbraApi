@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Notificacao } from '../notificacao-document';
 import { NotificationService } from '../services/notification.service';
@@ -38,7 +38,7 @@ export class NotificationControllerController {
      * Create a notification
      */
     @Post()
-    createNotification(notification: NotificationDTO): Promise<NotificationDTO> {
+    createNotification(@Body() notification: NotificationDTO): Promise<NotificationDTO> {
         return this.service.createNotification(notification);
     }
 }

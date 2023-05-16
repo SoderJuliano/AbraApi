@@ -1,8 +1,6 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { IsNotEmpty, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
 
 export type NotificationDocument = HydratedDocument<Notification>;
 
@@ -23,6 +21,12 @@ export class Notification {
 
   @Prop()
   content: string;
+
+  @Prop()
+  key: string;
+
+  @Prop()
+  read: boolean;
 }
 
 export const Notificationchema = SchemaFactory.createForClass(Notification);

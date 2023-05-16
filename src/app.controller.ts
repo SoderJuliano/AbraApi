@@ -1,10 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { NotificationDTO } from './notification/notification-controller/dtos/notification.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('admin')
 @ApiTags('Admin')
+@ApiBearerAuth()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

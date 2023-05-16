@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
+import { RecoverNotificationDTO } from './dtos/recover.notification.dto';
 
 @Controller('notifications')
 @ApiTags('Notification')
@@ -11,9 +12,9 @@ export class NotificationControllerController {
     /**
      * A notification
      */
-    @Get(':id')
-    getNotification(@Param() id: string) {
-        return `Notification with id ${id}`;
+    @Patch()
+    getNotification(@Body() recoverNotification: RecoverNotificationDTO): Promise<Notification[]> {
+        return this.service.getNotification(recoverNotification);
     }
 
     /**

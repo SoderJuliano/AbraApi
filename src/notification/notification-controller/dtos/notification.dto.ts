@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsString } from "class-validator";
-import moment from "moment";
 export class NotificationDTO {
     
 
@@ -24,6 +23,8 @@ export class NotificationDTO {
      * Can be used ids, emails or whatever you want as a notification opener key
      * @example '!@ExempleKey'
      */
+    @IsNotEmpty()
+    @IsString()
     key: string;
 
     dateCreated: Date;
@@ -35,6 +36,12 @@ export class NotificationDTO {
    * @example 'This is a test notification'
    */
     content: string;
+
+    read: boolean = false;
+
+    setRead(){
+        this.read = true;
+    }
  
     setDataCriacao(){
         this.dateCreated = new Date(Date.now());
@@ -68,5 +75,8 @@ export class NotificationDTO {
         this.app = newn.app;
         this.appUrl = newn.appUrl;
         this.content = newn.content;
+        this.key = newn.key;
+        this.read = newn.read;
+        this.setDataCriacao();
     }
 }

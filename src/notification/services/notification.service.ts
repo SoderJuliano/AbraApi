@@ -9,10 +9,6 @@ import { NotificationDTO } from '../notification-controller/dtos/notification.dt
 export class NotificationService {
     constructor(@InjectModel('notification') private readonly notificationModel: Model<Notification>) {}
 
-    async getAllNotifications(): Promise<NotificationDTO[]> {
-        return await this.notificationModel.find();
-    }
-
     async createNotification(notification: NotificationDTO): Promise<NotificationDTO> {
         const newNotification = new NotificationDTO();
         newNotification.from(notification);

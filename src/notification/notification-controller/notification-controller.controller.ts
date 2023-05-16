@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Notificacao } from '../notificacao-document';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
 
@@ -8,15 +7,6 @@ import { NotificationDTO } from './dtos/notification.dto';
 @ApiTags('Notification')
 export class NotificationControllerController {
     constructor(private readonly service: NotificationService) {}
-
-    /**
-     * 
-     * All notifications
-     */
-    @Get()
-    getNotifications(): Promise<NotificationDTO[]> {
-        return this.service.getAllNotifications();
-    }
 
     /**
      * A notification
@@ -33,7 +23,7 @@ export class NotificationControllerController {
     readNotification(@Param() id: string) {
         return `Notification with id ${id} has been read`;
     }
-    
+
     /**
      * Create a notification
      */

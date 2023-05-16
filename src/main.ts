@@ -11,6 +11,7 @@ async function bootstrap() {
     .setDescription('The Abra API it`s a notification service that provides notification for any other services')
     .setVersion('1.0')
     .addTag('Notification')
+    .addTag('Admin')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

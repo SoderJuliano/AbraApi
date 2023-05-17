@@ -14,4 +14,8 @@ export class AppService {
     async getAllNotifications(): Promise<NotificationDTO[]> {
     return await this.notificationModel.find();
     }
+
+    async deleteNotification(id: string): Promise<Object> {
+      return await this.notificationModel.deleteOne({ _id: id });
+    }
 }

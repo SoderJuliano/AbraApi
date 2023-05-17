@@ -15,6 +15,11 @@ export class RecoverNotificationDTO {
     @IsNotEmpty()
     key: string;
 
+    constructor(url: string, key: string) {
+        this.url = url;
+        this.key = key;
+    }
+
     getKey(): string { return this.key; }
     getUrl(): string { return this.url; }
 }

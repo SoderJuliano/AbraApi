@@ -12,8 +12,9 @@ export class NotificationControllerController {
     /**
      * A notification
      */
-    @Patch()
-    getNotification(@Body() recoverNotification: RecoverNotificationDTO): Promise<Notification[]> {
+    @Get(':url/:key')
+    getNotification(@Param('url') url: string, @Param('key') key: string): Promise<Notification[]> {
+        const recoverNotification = new RecoverNotificationDTO(url, key);
         return this.service.getNotification(recoverNotification);
     }
 

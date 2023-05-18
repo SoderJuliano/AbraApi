@@ -27,6 +27,7 @@ export class Notification {
 
   @Prop()
   read: boolean;
+
 }
 
 export const Notificationchema = SchemaFactory.createForClass(Notification);

@@ -22,8 +22,8 @@ export class NotificationControllerController {
      * Set a notification as read
      */
     @Patch(':id')
-    readNotification(@Param() id: string) {
-        return `Notification with id ${id} has been read`;
+    readNotification(@Param('id') id: string): Promise<Notification> {
+        return this.service.readNotification(id);
     }
 
     /**

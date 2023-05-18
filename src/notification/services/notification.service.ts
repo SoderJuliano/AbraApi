@@ -27,4 +27,17 @@ export class NotificationService {
         }
         return notifications;
     }
+    async readNotification(id: string): Promise<Notification> {
+        this.log.print(`reading Notification for id: ${id}`);
+        let notification = await this.notificationModel.findById(id).exec();
+        if(notification == null){
+            this.log.printError(`Could not find notification with id: ${id}`);
+            throw new NotFoundException(`Not found such notification with id: ${id}`);
+        }
+        await notification.updateOne({read: true}).exec();
+        await notification.updateOne({dateUpdated: new Date(Date.now())}).exec();
+        let notificationUpdated = await this.notificationModel.findById(id).exec();
+        this.log.print(`Notification updated ${JSON.stringify(notificationUpdated)}`);
+        return notificationUpdated;
+    }
 }

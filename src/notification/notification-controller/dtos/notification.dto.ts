@@ -1,6 +1,17 @@
 import { IsNotEmpty, IsString } from "class-validator";
+import { NotificationDocument } from "../../schema/notification.schema"
+import { Transform, Type } from "class-transformer";
+import { Types } from "mongoose";
+import { BadRequestException } from "@nestjs/common";
 export class NotificationDTO {
     
+    /**
+     * Id for representation of mongo objectId
+     * will only show during some retuns
+     * @example '6462eb672fa0abf4069bc1a5'
+     */
+    @IsString()
+    id: string;
 
     /**
    * The app name that the notification should be sent to
@@ -78,5 +89,19 @@ export class NotificationDTO {
         this.key = newn.key;
         this.read = newn.read;
         this.setDataCriacao();
+    }
+
+    schemaToDto(notification: NotificationDocument): NotificationDTO {
+        
+        this.app = notification.app;
+        this.appUrl = notification.appUrl;
+        this.content = notification.content;
+        this.key = notification.key;
+        this.read = notification.read;
+        this.dateCreated = notification.dateCreated;
+        this.dateUpdated = notification.dateUpdated;
+        this.id = notification._id?.toString();
+        return this;
+
     }
 }

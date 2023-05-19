@@ -13,7 +13,7 @@ export class NotificationControllerController {
      * A notification
      */
     @Get(':url/:key')
-    getNotification(@Param('url') url: string, @Param('key') key: string): Promise<Notification[]> {
+    getNotification(@Param('url') url: string, @Param('key') key: string): Promise<NotificationDTO[]> {
         const recoverNotification = new RecoverNotificationDTO(url, key);
         return this.service.getNotification(recoverNotification);
     }
@@ -22,7 +22,7 @@ export class NotificationControllerController {
      * Set a notification as read
      */
     @Patch(':id')
-    readNotification(@Param('id') id: string): Promise<Notification> {
+    readNotification(@Param('id') id: string): Promise<NotificationDTO> {
         return this.service.readNotification(id);
     }
 

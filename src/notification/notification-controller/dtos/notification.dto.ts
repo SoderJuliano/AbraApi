@@ -30,6 +30,16 @@ export class NotificationDTO {
     appUrl: string;
 
     /**
+     * The user can be null and in this case
+     * the notification will be showed only with the key
+     * But you can set a user to recive this notification
+     * whwre the field can be filled with email, id or any other user identification
+     * @example 'myuser@example.com'
+     */
+    @IsString()
+    user: string;
+
+    /**
      * The key needed to read this notification.
      * Can be used ids, emails or whatever you want as a notification opener key
      * @example '!@ExempleKey'
@@ -88,6 +98,7 @@ export class NotificationDTO {
         this.content = newn.content;
         this.key = newn.key;
         this.read = newn.read;
+        this.user = newn.user;
         this.setDataCriacao();
     }
 
@@ -101,6 +112,7 @@ export class NotificationDTO {
         this.dateCreated = notification.dateCreated;
         this.dateUpdated = notification.dateUpdated;
         this.id = notification._id?.toString();
+        this.user = notification.user;
         return this;
 
     }

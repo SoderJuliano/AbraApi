@@ -5,6 +5,7 @@ import { NotificationDTO } from '../notification-controller/dtos/notification.dt
 import { RecoverNotificationDTO } from '../notification-controller/dtos/recover.notification.dto';
 import { Logger } from 'src/utils/logger';
 import { NotificationDocument } from '../schema/notification.schema';
+import { NotificationRequest } from '../notification-controller/dtos/request.notification.dto';
 
 @Injectable()
 export class NotificationService {
@@ -19,16 +20,26 @@ export class NotificationService {
         return newNotification;
     }
 
-    async getNotification(recoverNotification: RecoverNotificationDTO): Promise<NotificationDTO[]> {
-        this.log.print(`getNotification with url: ${recoverNotification.url} and key: ${recoverNotification.key}`);
-        const notifications = await this.notificationModel.find({ key: recoverNotification.key, appUrl: recoverNotification.url }).exec();
-        if(notifications.length == 0){
-            this.log.printError(`Could not find notifications for values ${JSON.stringify(recoverNotification)}`);
-            throw new NotFoundException(`Not found such notification for key: ${recoverNotification.getKey()} and appUrl: ${recoverNotification.getUrl()}`);
+    async getNotification(request: NotificationRequest): Promise<NotificationDTO[]> {
+        this.log.print(`getNotification with url: ${request.url} and key: ${request.key}`);
+         let notifications: NotificationDocument[];
+        if(!request.user){
+            notifications = await this.notificationModel.find({ key: request.key, appUrl: request.url }).exec();
+        }else{
+            notifications = await this.notificationModel.find({ key: request.key, appUrl: request.url, user: request.user }).exec();
         }
+
+        if(notifications.length == 0){
+            this.log.printError(`Could not find notifications for values ${JSON.stringify(request)}`);
+            throw new NotFoundException(`Not found such notification for key: ${request.key} and appUrl: ${request.url}`);
+        }
+
         const arrayNotifications = [];
         notifications.forEach(n => {
-            arrayNotifications.push(new NotificationDTO().schemaToDto(n));
+            const nNotification = new NotificationDTO().schemaToDto(n);
+            if(nNotification.user == request.user){
+                arrayNotifications.push(nNotification);
+            }
         })
         return arrayNotifications;
     }

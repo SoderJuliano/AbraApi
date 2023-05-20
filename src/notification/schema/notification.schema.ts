@@ -14,6 +14,9 @@ export class Notification {
   appUrl: string;
 
   @Prop()
+  user: string;
+
+  @Prop()
   dateCreated: Date;
 
   @Prop()

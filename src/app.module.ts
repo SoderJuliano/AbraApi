@@ -6,12 +6,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Notificationchema } from './notification/schema/notification.schema';
 import { AdminMiddleware } from './utils/adminMidleware';
 
+//mongodb://soder:soder1989@172.18.0.3:27017
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://soder:soder1989@172.18.0.3:27017', {
+    MongooseModule.forRoot('mongodb://localhost/', {
       dbName: 'notificacao',
     }),
-    MongooseModule.forFeature([{ name: 'notification', schema: Notificationchema }]),
+    MongooseModule.forFeature([
+      { name: 'notification', schema: Notificationchema },
+    ]),
     NotificationModule,
   ],
   controllers: [AppController],
@@ -19,8 +22,6 @@ import { AdminMiddleware } from './utils/adminMidleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AdminMiddleware)
-      .forRoutes('admin');
+    consumer.apply(AdminMiddleware).forRoutes('admin');
   }
 }

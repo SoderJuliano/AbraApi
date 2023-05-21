@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
 import { RecoverNotificationDTO } from './dtos/recover.notification.dto';
@@ -13,9 +13,7 @@ export class NotificationControllerController {
     /**
      * A notification
      */
-    @ApiBody({ type: NotificationRequest })
-    @ApiResponse({ status: 200  })
-    @Get(':url/:key')
+    @Get()
     getNotification(@Body() request: NotificationRequest): Promise<NotificationDTO[]> {
         //const recoverNotification = new RecoverNotificationDTO(request.url, request.key);
         return this.service.getNotification(request);

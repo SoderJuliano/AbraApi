@@ -98,14 +98,17 @@ export class NotificationDTO {
         return this.content;
     }
 
-    from(newn: NotificationDTO){
+    dtoToDto(newn: NotificationDTO){
+
         this.app = newn.app;
         this.appUrl = newn.appUrl;
         this.content = newn.content;
         this.key = newn.key;
         this.read = newn.read;
         this.user = newn.user;
+        this.title = newn.title;
         this.setDataCriacao();
+    
     }
 
     schemaToDto(notification: NotificationDocument): NotificationDTO {

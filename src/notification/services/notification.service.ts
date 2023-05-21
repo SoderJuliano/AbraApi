@@ -14,7 +14,7 @@ export class NotificationService {
 
     async createNotification(notification: NotificationDTO): Promise<NotificationDTO> {
         const newNotification = new NotificationDTO();
-        newNotification.from(notification);
+        newNotification.dtoToDto(notification);
         const newn = new this.notificationModel(newNotification);
         await newn.save();
         return newNotification;

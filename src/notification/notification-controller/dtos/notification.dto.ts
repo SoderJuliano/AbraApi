@@ -10,8 +10,15 @@ export class NotificationDTO {
      * will only show during some retuns
      * @example '6462eb672fa0abf4069bc1a5'
      */
-    @IsString()
     id: string;
+
+    /**
+     * Every notification should have a title
+     * @example 'I`m a notification'
+     */
+    @IsNotEmpty()
+    @IsString()
+    title: string;
 
     /**
    * The app name that the notification should be sent to
@@ -36,7 +43,6 @@ export class NotificationDTO {
      * whwre the field can be filled with email, id or any other user identification
      * @example 'myuser@example.com'
      */
-    @IsString()
     user: string;
 
     /**

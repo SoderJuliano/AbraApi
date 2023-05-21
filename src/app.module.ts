@@ -9,7 +9,7 @@ import { AdminMiddleware } from './utils/adminMidleware';
 //mongodb://soder:soder1989@172.18.0.3:27017
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/', {
+    MongooseModule.forRoot('mongodb://localhost/27017', {
       dbName: 'notificacao',
     }),
     MongooseModule.forFeature([

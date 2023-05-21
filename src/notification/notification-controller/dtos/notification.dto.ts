@@ -122,6 +122,7 @@ export class NotificationDTO {
         this.dateUpdated = notification.dateUpdated;
         this.id = notification._id?.toString();
         this.user = notification.user;
+        this.title = notification.title;
         return this;
 
     }

@@ -23,6 +23,9 @@ export class Notification {
   dateUpdated: Date;
 
   @Prop()
+  language: string;
+
+  @Prop()
   title: string;
 
   @Prop()

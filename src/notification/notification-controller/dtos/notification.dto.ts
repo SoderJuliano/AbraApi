@@ -59,6 +59,12 @@ export class NotificationDTO {
     dateUpdated: Date;
 
     /**
+     * The language that the notification should be displayed
+     * @example 'pt-br'
+     */
+    language: string;
+
+    /**
    * The notification text to display in the notification
    * @example 'This is a test notification'
    */
@@ -107,6 +113,7 @@ export class NotificationDTO {
         this.read = newn.read;
         this.user = newn.user;
         this.title = newn.title;
+        this.language = newn.language;
         this.setDataCriacao();
     
     }
@@ -123,6 +130,7 @@ export class NotificationDTO {
         this.id = notification._id?.toString();
         this.user = notification.user;
         this.title = notification.title;
+        this.language = notification.language;
         return this;
 
     }

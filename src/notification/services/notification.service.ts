@@ -21,17 +21,25 @@ export class NotificationService {
     }
 
     async getNotification(request: NotificationRequest): Promise<NotificationDTO[]> {
+        
         this.log.print(`getNotification with url: ${request.url} and key: ${request.key}`);
-         let notifications: NotificationDocument[];
+        let notifications: NotificationDocument[];
+        
         if(!request.user){
             notifications = await this.notificationModel.find({ key: request.key, appUrl: request.url }).exec();
+        }else if(!request.url){
+            notifications = await this.notificationModel.find({ key: request.key, user: request.user }).exec();
         }else{
             notifications = await this.notificationModel.find({ key: request.key, appUrl: request.url, user: request.user }).exec();
         }
 
         if(notifications.length == 0){
             this.log.printError(`Could not find notifications for values ${JSON.stringify(request)}`);
-            throw new NotFoundException(`Not found such notification for key: ${request.key} and appUrl: ${request.url}`);
+            throw new NotFoundException(
+              `Could not find notifications for values ${JSON.stringify(
+                request,
+              )}`,
+            );
         }
 
         const arrayNotifications = [];

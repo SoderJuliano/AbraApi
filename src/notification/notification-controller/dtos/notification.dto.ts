@@ -1,8 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { NotificationDocument } from "../../schema/notification.schema"
-import { Transform, Type } from "class-transformer";
-import { Types } from "mongoose";
-import { BadRequestException } from "@nestjs/common";
 export class NotificationDTO {
     
     /**
@@ -24,8 +21,7 @@ export class NotificationDTO {
    * The app name that the notification should be sent to
    * @example 'My App'
    */
-    @IsNotEmpty()
-    @IsString()
+    @IsOptional()
     app: string;
 
     /**
@@ -43,6 +39,7 @@ export class NotificationDTO {
      * whwre the field can be filled with email, id or any other user identification
      * @example 'myuser@example.com'
      */
+    @IsOptional()
     user: string;
 
     /**

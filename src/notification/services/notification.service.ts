@@ -2,15 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotificationDTO } from '../notification-controller/dtos/notification.dto';
-import { RecoverNotificationDTO } from '../notification-controller/dtos/recover.notification.dto';
 import { Logger } from 'src/utils/logger';
 import { NotificationDocument } from '../schema/notification.schema';
 import { NotificationRequest } from '../notification-controller/dtos/request.notification.dto';
+import { Validator } from 'src/utils/validator';
 
 @Injectable()
 export class NotificationService {
     constructor(@InjectModel('notification') private notificationModel: Model<NotificationDocument>) {}
     private log: Logger = new Logger();
+    private validator: Validator = new Validator();
 
     async createNotification(notification: NotificationDTO): Promise<NotificationDTO> {
         const newNotification = new NotificationDTO();
@@ -52,6 +53,7 @@ export class NotificationService {
         return arrayNotifications;
     }
     async readNotification(id: string): Promise<NotificationDTO> {
+        this.validator.idIsValid(id);
         const dto = new NotificationDTO();
         this.log.print(`reading Notification for id: ${id}`);
         let notification = await this.notificationModel.findById(id).exec();

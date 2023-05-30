@@ -4,11 +4,18 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const appDirectory = process.cwd();
+	const httpsOptions = {
+		key: fs.readFileSync(path.join(appDirectory, './src/private.key')),
+		cert: fs.readFileSync(path.join(appDirectory, './src/certificate.crt')),
+	};
+  const app = await NestFactory.create(AppModule, { httpsOptions });
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Abra API')
-    .setDescription('The Abra API it`s a notification service that provides notification for any other services')
+    .setDescription(
+      'The Abra API it`s a notification service that provides notification for any other services',
+    )
     .setVersion('1.0')
     .addTag('Notification')
     .addTag('Admin')

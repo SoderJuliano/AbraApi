@@ -2,15 +2,16 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { HttpHandler } from './httpHandler';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
 async function bootstrap() {
   const appDirectory = process.cwd();
-	const httpsOptions = {
-		key: fs.readFileSync(path.join(appDirectory, './src/private.key')),
-		cert: fs.readFileSync(path.join(appDirectory, './src/certificate.crt')),
-	};
+  const httpsOptions = {
+    key: fs.readFileSync(path.join(appDirectory, './src/private.key')),
+    cert: fs.readFileSync(path.join(appDirectory, './src/certificate.crt')),
+  };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
@@ -29,3 +30,4 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+HttpHandler.bootstrap();

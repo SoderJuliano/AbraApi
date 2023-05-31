@@ -2,6 +2,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 async function bootstrap() {
   const appDirectory = process.cwd();

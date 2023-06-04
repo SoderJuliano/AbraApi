@@ -8,7 +8,7 @@ import { AdminMiddleware } from './utils/adminMidleware';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://soder:soder1989@172.18.0.2:27017', {
+    MongooseModule.forRoot('mongodb://soder:soder1989@164.152.37.73:27017', {
       dbName: 'notificacao',
     }),
     MongooseModule.forFeature([

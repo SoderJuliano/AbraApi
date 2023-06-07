@@ -9,8 +9,8 @@ import * as path from 'path';
 async function bootstrap() {
   const appDirectory = process.cwd();
   const httpsOptions = {
-    key: fs.readFileSync(path.join(appDirectory, './src/private.key')),
-    cert: fs.readFileSync(path.join(appDirectory, './src/certificate.crt')),
+    key: fs.readFileSync(path.join(appDirectory, './src/privkey.pem')),
+    cert: fs.readFileSync(path.join(appDirectory, './src/fullchain.pem')),
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.useGlobalPipes(new ValidationPipe());
@@ -28,9 +28,12 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.enableCors({
     origin: '*',
-    methods: 'GET,HEAD,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
-  });
+    methods: ['GET','HEAD','PATCH','POST','DELETE'],
+    allowedHeaders: ['access-control-allow-headers','access-control-allow-methods','access-control-allow-origin', 'X-Requested-With', 'X-HTTP-Method-Override', 'Content-Type', 'Accept'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true 
+ });
   await app.listen(3000);
 }
 bootstrap();

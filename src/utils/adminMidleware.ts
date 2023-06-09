@@ -17,7 +17,7 @@ export class AdminMiddleware implements NestMiddleware {
       log.printWarn(
         `Token not matching. The token I got was ${token}`,
       );
-      throw new UnauthorizedException('Your not an administrator');
+      throw new UnauthorizedException('You are not an administrator');
     }
     
     next();

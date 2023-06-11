@@ -1,3 +1,4 @@
+<span>🇺🇸 en-US doc</span>
 # AbraAPI - Documentation
 ## Description
 
@@ -112,7 +113,7 @@ The AbraAPI is a powerful API for registering and sending notifications to syste
 
 ----
 <br>
-<span>pt-br doc</span>
+<span>🇧🇷 pt-BR doc</span>
 
 # AbraAPI - Documentação
 

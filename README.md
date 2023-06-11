@@ -15,7 +15,7 @@ This endpoint allows you to send a new notification.
 
 Example request:
 
-Copy code
+
 ```bash
 POST /notifications HTTP/1.1
 Host: api.abra.com
@@ -51,14 +51,14 @@ This endpoint allows you to retrieve all registered notifications by key.
 
 Example request:
 
-Copy code
+
 ```bash
 GET /notifications/retrieve?key=!@ExempleKey HTTP/1.1
 Host: api.abra.com
 Example response:
 
 json
-Copy code
+
 [
   {
     "id": "a462ea672aa0akf4069ac1al",
@@ -87,7 +87,7 @@ This endpoint allows you to mark a notification as read.
 Example request:
 
 
-Copy code
+
 ```bash
 PATCH /notifications/a882ea679aa0akf4069ac1aa HTTP/1.1
 Host: api.abra.com
@@ -130,7 +130,7 @@ Este endpoint permite enviar uma nova notificação.
 
 Exemplo de requisição:
 
-Copy code
+
 
 POST /notifications HTTP/1.1
 Host: api.abra.com
@@ -162,7 +162,7 @@ Este endpoint permite recuperar todas as notificações registradas.
 
 Exemplo de requisição:
 
-Copy code
+
 ```bash
 GET /notifications/retrieve?key=!@ExempleKey HTTP/1.1
 Host: api.abra.com
@@ -196,7 +196,7 @@ Este endpoint permite marcar uma notificação como lida.
 Exemplo de requisição:
 ```bash
 bash
-Copy code
+
 PATCH /notifications/a882ea679aa0akf4069ac1aa HTTP/1.1
 Host: api.abra.com
 Content-Type: application/json

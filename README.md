@@ -1,73 +1,220 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
+<span>🇺🇸 en-US doc</span>
+# AbraAPI - Documentation
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The AbraAPI is a public API that allows you to register and retrieve notifications for integrations. The name "Abra" is based on the Pokémon Abra, known for its teleportation ability. This API was developed with the aim of providing an efficient and scalable system for managing notifications across different systems or individual profiles within those systems. Through the AbraAPI, you can send, receive, and even mark notifications as read.
 
-## Installation
+## Example Usage
 
+Below, we provide examples of using the main methods available in the AbraAPI.
+
+POST - Send Notification
+Endpoint: /notifications
+
+This endpoint allows you to send a new notification.
+
+Example request:
+
+Copy code
 ```bash
-$ npm install
+POST /notifications HTTP/1.1
+Host: api.abra.com
+Content-Type: application/json
+
+{ 
+  "key": "!@ExempleKey",
+  "title": "New message",
+  "content": "You have received a new message."
+}
+
 ```
 
-## Running the app
+Example response:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+{
+  "id": "a462ea672aa0akf4069ac1al",
+  "title": "I`m a notification",
+  "key": "!@ExempleKey",
+  "dateCreated": "2023-06-11T13:58:01.916Z",
+  "dateUpdated": null,
+  "title": "New message",
+  "content": "This is a test notification",
+  "read": false
+}
 ```
 
-## Test
+GET - Retrieve Notifications
+Endpoint: /notifications/retrieve
+
+This endpoint allows you to retrieve all registered notifications by key.
+
+Example request:
+
+Copy code
+```bash
+GET /notifications/retrieve?key=!@ExempleKey HTTP/1.1
+Host: api.abra.com
+Example response:
+
+json
+Copy code
+[
+  {
+    "id": "a462ea672aa0akf4069ac1al",
+    "title": "New message",
+    "content": "You have received a new message.",
+    "dateCreated": "2023-06-11T14:09:49.081Z",
+    "read": false
+  },
+  {
+    "id": "a882ea679aa0akf4069ac1aa",
+    "title": "Profile update",
+    "content": "Your profile has been successfully updated.",
+    "dateCreated": "2023-06-11T14:09:49.081Z",
+    "dateUpdated": "2023-06-11T14:09:49.081Z",
+    "read": true
+  }
+]
+```
+
+PATCH - Mark Notification as Read
+
+Endpoint: /notifications/a882ea679aa0akf4069ac1aa
+
+This endpoint allows you to mark a notification as read.
+
+Example request:
+
+
+Copy code
+```bash
+PATCH /notifications/a882ea679aa0akf4069ac1aa HTTP/1.1
+Host: api.abra.com
+Content-Type: application/json
+```
+Example response:
 
 ```bash
-# unit tests
-$ npm run test
+{
+  "id": "6462eb672fa0abf4069bc1a5",
+  "title": "Profile update",
+  "key": "!@ExempleKey",
+  "dateCreated": "2023-06-11T14:05:37.965Z",
+  "dateUpdated": "2023-06-11T14:05:37.965Z",
+  "content": "Your profile has been successfully updated.",
+  "read": true
+}
+```
+## Final Considerations
+The AbraAPI is a powerful API for registering and sending notifications to systems or individual profiles. It provides endpoints to retrieve notifications, send new notifications, and mark notifications as read. Through these functionalities, you can efficiently and effectively manage notifications generated by the integrated systems.
 
-# e2e tests
-$ npm run test:e2e
+<b>For more informations consult the Swagger documentation https://abra-api.top/api</b>
 
-# test coverage
-$ npm run test:cov
+----
+<br>
+<span>🇧🇷 pt-BR doc</span>
+
+# AbraAPI - Documentação
+
+## Descrição
+A AbraAPI é uma API pública que permite registrar e recuperar notificações para integrações. O nome "Abra" é baseado no Pokémon Abra, conhecido por sua habilidade de teletransporte. Esta API foi desenvolvida com o objetivo de fornecer um sistema eficiente e escalável para gerenciar notificações em diferentes sistemas ou perfis individuais dentro desses sistemas. Através da AbraAPI, é possível enviar, receber e até mesmo marcar notificações como lidas.
+
+## Exemplos de Uso
+A seguir, apresentamos exemplos de uso dos principais métodos disponíveis na AbraAPI.
+
+POST - Enviar Notificação
+Endpoint: /notifications
+
+Este endpoint permite enviar uma nova notificação.
+
+Exemplo de requisição:
+
+Copy code
+
+POST /notifications HTTP/1.1
+Host: api.abra.com
+Content-Type: application/json
+```bash
+{ 
+  "key": "!@ExempleKey",
+  "title": "Nova mensagem",
+  "content": "Você recebeu uma nova mensagem."
+}
+```
+Exemplo de resposta:
+```bash
+{
+  "id": "a462ea672aa0akf4069ac1al",
+  "key": "!@ExempleKey",
+  "dateCreated": "2023-06-11T13:58:01.916Z",
+  "dateUpdated": null,
+  "title": "Nova mensagem",
+  "content": "Você recebeu uma nova mensagem."
+  "read": false
+}
 ```
 
-## Support
+GET - Recuperar Notificações
+Endpoint: /notifications/retrieve
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Este endpoint permite recuperar todas as notificações registradas.
 
-## Stay in touch
+Exemplo de requisição:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Copy code
+```bash
+GET /notifications/retrieve?key=!@ExempleKey HTTP/1.1
+Host: api.abra.com
+```
+Exemplo de resposta:
+```bash
+[
+  {
+    "id": "a462ea672aa0akf4069ac1al",
+    "title": "Nova mensagem",
+    "content": "Você recebeu uma nova mensagem.",
+    "dateCreated": "2023-06-11T14:09:49.081Z",
+    "read": false
+  },
+  {
+    "id": "a882ea679aa0akf4069ac1aa",
+    "title": "Atualização de perfil",
+    "content": "Seu perfil foi atualizado com sucesso.",
+    "dateCreated": "2023-06-11T14:09:49.081Z",
+    "dateUpdated": "2023-06-11T14:09:49.081Z",
+    "read": true
+  }
+]
+```
+PATCH - Marcar Notificação como Lida
 
-## License
+Endpoint: /notifications/{id}
 
-Nest is [MIT licensed](LICENSE).
+Este endpoint permite marcar uma notificação como lida.
+
+Exemplo de requisição:
+```bash
+bash
+Copy code
+PATCH /notifications/a882ea679aa0akf4069ac1aa HTTP/1.1
+Host: api.abra.com
+Content-Type: application/json
+```
+Exemplo de resposta:
+
+```bash
+{
+  "id": a882ea679aa0akf4069ac1aa,
+  "title": "Atualização de perfil",
+  "content": "Seu perfil foi atualizado com sucesso.",
+  "dateUpdated": "2023-06-11T14:09:49.081Z",
+  "read": true
+}
+```
+## Considerações Finais
+A AbraAPI é uma API poderosa para o registro e envio de notificações em sistemas ou perfis individuais. Ela fornece endpoints para recuperar notificações, enviar novas notificações e marcar notificações como lidas. Através dessas funcionalidades, é possível manter um controle eficiente e atualizado sobre as notificações geradas pelos sistemas integrados.
+
+<b>For more informations consult the Swagger documentation https://abra-api.top/api</b>
+
+----

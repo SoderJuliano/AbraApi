@@ -215,6 +215,6 @@ Exemplo de resposta:
 ## Considerações Finais
 A AbraAPI é uma API poderosa para o registro e envio de notificações em sistemas ou perfis individuais. Ela fornece endpoints para recuperar notificações, enviar novas notificações e marcar notificações como lidas. Através dessas funcionalidades, é possível manter um controle eficiente e atualizado sobre as notificações geradas pelos sistemas integrados.
 
-<b>For more informations consult the Swagger documentation https://abra-api.top/api</b>
+<b>Para maiores informações consulte nossa documentação no Swagger https://abra-api.top/api</b>
 
 ----

@@ -5,12 +5,14 @@ import { AppModule } from './app.module';
 import { HttpHandler } from './httpHandler';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
+  dotenv.config(); // Carrega as variáveis de ambiente do arquivo .env
   const appDirectory = process.cwd();
   const httpsOptions = {
-    key: fs.readFileSync(path.join(appDirectory, './src/privkey.pem')),
-    cert: fs.readFileSync(path.join(appDirectory, './src/fullchain.pem')),
+    key: fs.readFileSync(path.join(appDirectory, process.env.PRIVATE_KEY)),
+    cert: fs.readFileSync(path.join(appDirectory, process.env.CERTIFICATE)),
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.useGlobalPipes(new ValidationPipe());

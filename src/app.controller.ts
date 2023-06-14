@@ -10,15 +10,10 @@ import { Logger } from './utils/logger';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Get('/all')
     getAllNotifications(): Promise<NotificationDTO[]> {
       return this.appService.getAllNotifications();
-    }
+  }
 
   @Delete(':id')
   async deleteNotification(@Param('id') id: string): Promise<Object> {

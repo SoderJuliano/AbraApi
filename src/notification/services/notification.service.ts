@@ -51,6 +51,7 @@ export class NotificationService {
         })
         return arrayNotifications;
     }
+
     async readNotification(id: string): Promise<NotificationDTO> {
         this.validator.idIsValid(id);
         const dto = new NotificationDTO();
@@ -64,5 +65,16 @@ export class NotificationService {
         let notificationUpdated = await this.notificationModel.findById(id).exec();
         Logger.print(`Notification updated ${JSON.stringify(notificationUpdated)}`);
         return  dto.schemaToDto(notificationUpdated);
+    }
+
+    async getHello(): Promise<{ message: string }> {
+        const greeting = 'Hello! Welcome to Abra API.';
+        const currentTime = new Date().toLocaleTimeString();
+
+        const response = {
+            message: `${greeting} The current time is ${currentTime}.`,
+        };
+
+        return response;
     }
 }

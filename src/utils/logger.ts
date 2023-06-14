@@ -5,7 +5,7 @@ export class Logger {
 
   static print(message: string) {
     console.log(
-      `[${moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
+      `[${moment().format('yyyy-MM-DD:HH:mm:ss')}] [${
         Log.INFO
       }]: ${message}`,
     );
@@ -13,7 +13,7 @@ export class Logger {
 
   static printError(message: string) {
     console.log(
-      `[${moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
+      `[${moment().format('yyyy-MM-DD:HH:mm:ss')}] [${
         Log.ERROR
       }]: ${message}`,
     );
@@ -21,7 +21,7 @@ export class Logger {
 
   static printWarn(message: string) {
     console.log(
-      `[${moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
+      `[${moment().format('yyyy-MM-DD:HH:mm:ss')}] [${
         Log.WARN
       }]: ${message}`,
     );

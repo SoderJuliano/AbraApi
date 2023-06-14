@@ -6,6 +6,9 @@ import { HttpHandler } from './httpHandler';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import { setupSwaggerDev } from './configs/swagger-dev';
+import { setupSwaggerPrd } from './configs/swagger-prd';
+import { Logger } from './utils/logger';
 
 async function bootstrap() {
   dotenv.config(); // Carrega as variáveis de ambiente do arquivo .env
@@ -16,18 +19,15 @@ async function bootstrap() {
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.useGlobalPipes(new ValidationPipe());
-  const config = new DocumentBuilder()
-    .setTitle('Abra API')
-    .setDescription(
-      'The Abra API it`s a notification service that provides notification for any other services',
-    )
-    .setVersion('1.0')
-    .addTag('Notification')
-    .addTag('Admin')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+
+  const environment = process.env.NODE_ENV || 'development';
+  Logger.print(`Starting application as ${environment} mode!`);
+  if (environment === 'development') {
+    setupSwaggerDev(app); // Use dev Swagger configuration
+  } else {
+    setupSwaggerPrd(app); // Use prd Swagger configuration
+  }
+
   app.enableCors({
     origin: '*',
     methods: ['GET','HEAD','PATCH','POST','DELETE'],

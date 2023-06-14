@@ -1,27 +1,27 @@
 import { Log } from './print-enuns';
+import * as moment from 'moment';
 
 export class Logger {
-  moment = require('moment');
 
-  print(message: string) {
+  static print(message: string) {
     console.log(
-      `[${this.moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
+      `[${moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
         Log.INFO
       }]: ${message}`,
     );
   }
 
-  printError(message: string) {
+  static printError(message: string) {
     console.log(
-      `[${this.moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
+      `[${moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
         Log.ERROR
       }]: ${message}`,
     );
   }
 
-  printWarn(message: string) {
+  static printWarn(message: string) {
     console.log(
-      `[${this.moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
+      `[${moment().format('yyyy-MM-DD:hh:mm:ss')}] [${
         Log.WARN
       }]: ${message}`,
     );

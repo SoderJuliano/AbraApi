@@ -9,7 +9,6 @@ import { Logger } from './utils/logger';
 @ApiBearerAuth()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  private log: Logger = new Logger();
 
   @Get()
   getHello(): string {
@@ -24,10 +23,10 @@ export class AppController {
   @Delete(':id')
   async deleteNotification(@Param('id') id: string): Promise<Object> {
     try{
-      this.log.print(`Deleting notification ${id}`);
+      Logger.print(`Deleting notification ${id}`);
       return await this.appService.deleteNotification(id);
     }catch(err){
-      this.log.printError(err.message);
+      Logger.printError(err.message);
       throw new BadRequestException(err.message);
     }
     

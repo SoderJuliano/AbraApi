@@ -34,7 +34,6 @@ Example response:
 ```bash
 {
   "id": "a462ea672aa0akf4069ac1al",
-  "title": "I`m a notification",
   "key": "!@ExempleKey",
   "dateCreated": "2023-06-11T13:58:01.916Z",
   "dateUpdated": null,

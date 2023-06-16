@@ -9,10 +9,6 @@ export class AppService {
     constructor(@InjectModel('notification') private readonly notificationModel: Model<Notification>) {}
     private validator: Validator = new Validator();
     
-    getHello(): string {
-    return 'Hello World!';
-    }
-
     async getAllNotifications(): Promise<NotificationDTO[]> {
     return await this.notificationModel.find();
     }

@@ -11,6 +11,15 @@ export class NotificationControllerController {
   constructor(private readonly service: NotificationService) {}
 
   /**
+   * 
+   * @returns Returns an hello with data and time :)
+   */
+  @Get('/hello')
+  getHello(): Promise<{ message: string }> {
+    return this.service.getHello();
+  }
+
+  /**
    * Retrive one or many notifications with a given body, may not work in swagger
    * but you may call by Postman or bash with the curl command
    */
@@ -64,4 +73,5 @@ export class NotificationControllerController {
   ): Promise<NotificationDTO> {
     return this.service.createNotification(notification);
   }
+
 }

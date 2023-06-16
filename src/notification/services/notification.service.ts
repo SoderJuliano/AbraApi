@@ -10,7 +10,6 @@ import { Validator } from 'src/utils/validator';
 @Injectable()
 export class NotificationService {
     constructor(@InjectModel('notification') private notificationModel: Model<NotificationDocument>) {}
-    private log: Logger = new Logger();
     private validator: Validator = new Validator();
 
     async createNotification(notification: NotificationDTO): Promise<NotificationDTO> {
@@ -23,7 +22,7 @@ export class NotificationService {
 
     async getNotification(request: NotificationRequest): Promise<NotificationDTO[]> {
         
-        this.log.print(`getNotification with url: ${request.url} and key: ${request.key}`);
+        Logger.print(`getNotification with url: ${request.url} and key: ${request.key}`);
         let notifications: NotificationDocument[];
         
         if(!request.user){
@@ -35,7 +34,7 @@ export class NotificationService {
         }
 
         if(notifications.length == 0){
-            this.log.printError(`Could not find notifications for values ${JSON.stringify(request)}`);
+            Logger.printError(`Could not find notifications for values ${JSON.stringify(request)}`);
             throw new NotFoundException(
               `Could not find notifications for values ${JSON.stringify(
                 request,
@@ -52,18 +51,30 @@ export class NotificationService {
         })
         return arrayNotifications;
     }
+
     async readNotification(id: string): Promise<NotificationDTO> {
         this.validator.idIsValid(id);
         const dto = new NotificationDTO();
-        this.log.print(`reading Notification for id: ${id}`);
+        Logger.print(`reading Notification for id: ${id}`);
         let notification = await this.notificationModel.findById(id).exec();
         if(notification == null){
-            this.log.printError(`Could not find notification with id: ${id}`);
+            Logger.printError(`Could not find notification with id: ${id}`);
             throw new NotFoundException(`Not found such notification with id: ${id}`);
         }
         await notification.updateOne({read: true, dateUpdated: new Date(Date.now())}).exec();
         let notificationUpdated = await this.notificationModel.findById(id).exec();
-        this.log.print(`Notification updated ${JSON.stringify(notificationUpdated)}`);
+        Logger.print(`Notification updated ${JSON.stringify(notificationUpdated)}`);
         return  dto.schemaToDto(notificationUpdated);
+    }
+
+    async getHello(): Promise<{ message: string }> {
+        const greeting = 'Hello! Welcome to Abra API.';
+        const currentTime = new Date().toLocaleTimeString();
+
+        const response = {
+            message: `${greeting} The current time is ${currentTime}.`,
+        };
+
+        return response;
     }
 }

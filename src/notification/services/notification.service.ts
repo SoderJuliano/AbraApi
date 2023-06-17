@@ -72,7 +72,7 @@ export class NotificationService {
         const currentTime = new Date().toLocaleTimeString();
 
         const response = {
-            message: `${greeting} The current time is ${currentTime}.`,
+            message: `${greeting} The current time is ${currentTime}, time zone: Etc/UTC (UTC, +0000).`,
         };
 
         return response;

@@ -28,8 +28,7 @@ export class NotificationDTO {
    * Your application url that the notification should be sent to
    * @example 'myapp.com'
    */
-    @IsNotEmpty()
-    @IsString()
+    @IsOptional()
     appUrl: string;
 
     /**

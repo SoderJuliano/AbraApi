@@ -18,7 +18,7 @@ Example request:
 
 ```bash
 POST /notifications HTTP/1.1
-Host: api.abra.com
+Host: api.abra.top
 Content-Type: application/json
 
 { 
@@ -53,7 +53,7 @@ Example request:
 
 ```bash
 GET /notifications/retrieve?key=!@ExempleKey HTTP/1.1
-Host: api.abra.com
+Host: api.abra.top
 Example response:
 
 json
@@ -89,7 +89,7 @@ Example request:
 
 ```bash
 PATCH /notifications/a882ea679aa0akf4069ac1aa HTTP/1.1
-Host: api.abra.com
+Host: api.abra.top
 Content-Type: application/json
 ```
 Example response:
@@ -132,7 +132,7 @@ Exemplo de requisição:
 
 
 POST /notifications HTTP/1.1
-Host: api.abra.com
+Host: api.abra.top
 Content-Type: application/json
 ```bash
 { 
@@ -164,7 +164,7 @@ Exemplo de requisição:
 
 ```bash
 GET /notifications/retrieve?key=!@ExempleKey HTTP/1.1
-Host: api.abra.com
+Host: api.abra.top
 ```
 Exemplo de resposta:
 ```bash
@@ -197,7 +197,7 @@ Exemplo de requisição:
 bash
 
 PATCH /notifications/a882ea679aa0akf4069ac1aa HTTP/1.1
-Host: api.abra.com
+Host: api.abra.top
 Content-Type: application/json
 ```
 Exemplo de resposta:

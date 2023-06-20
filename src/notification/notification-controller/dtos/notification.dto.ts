@@ -13,8 +13,8 @@ export class NotificationDTO {
      * Every notification should have a title
      * @example 'I`m a notification'
      */
-    @IsNotEmpty()
     @IsString()
+    @IsOptional()
     title: string;
 
     /**

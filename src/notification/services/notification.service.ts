@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotificationDTO } from '../notification-controller/dtos/notification.dto';
@@ -55,7 +55,7 @@ export class NotificationService {
     async readNotification(id: string): Promise<NotificationDTO> {
         this.validator.idIsValid(id);
         const dto = new NotificationDTO();
-        Logger.print(`reading Notification for id: ${id}`);
+        Logger.print(`Reading Notification for id: ${id}`);
         let notification = await this.notificationModel.findById(id).exec();
         if(notification == null){
             Logger.printError(`Could not find notification with id: ${id}`);
@@ -67,14 +67,34 @@ export class NotificationService {
         return  dto.schemaToDto(notificationUpdated);
     }
 
-    async getHello(): Promise<{ message: string }> {
+    async getHello(): Promise<{ content: string }> {
         const greeting = 'Hello! Welcome to Abra API.';
         const currentTime = new Date().toLocaleTimeString();
 
         const response = {
-            message: `${greeting} The current time is ${currentTime}, time zone: Etc/UTC (UTC, +0000).`,
+            content: `${greeting} The current time is ${currentTime}, time zone: Etc/UTC (UTC, +0000).`,
         };
 
         return response;
+    }
+
+    async deleteNotification(id: string): Promise<Object> {
+        this.validator.idIsValid(id);
+        Logger.print(`Deleting Notification for id: ${id}`);
+        try {
+            const deletedObject = await this.notificationModel.findByIdAndDelete(id).exec();
+            if (deletedObject) {
+              return { content: `Notification ${id} deleted successfully.` };
+            } else {
+                throw new NotFoundException(`Notification ${id} not found.`)
+            }
+        } catch (error) {
+        Logger.printError(`Error when tryed delete notification with id: ${id}`);
+        if (error instanceof NotFoundException) {
+            throw error; // Re-throw the NotFoundException
+        } else {
+            throw new InternalServerErrorException(`Error when trying to delete notification with id: ${id}`);
+        }
+          }
     }
 }

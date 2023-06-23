@@ -1,12 +1,14 @@
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { NotificationDocument } from "../../schema/notification.schema"
+import { ApiHideProperty } from "@nestjs/swagger";
 export class NotificationDTO {
-    
+         
     /**
      * Id for representation of mongo objectId
      * will only show during some retuns
      * @example '6462eb672fa0abf4069bc1a5'
      */
+    @ApiHideProperty()
     id: string;
 
     /**
@@ -22,6 +24,7 @@ export class NotificationDTO {
    * @example 'My App'
    */
     @IsOptional()
+    @ApiHideProperty()
     app: string;
 
     /**
@@ -29,6 +32,7 @@ export class NotificationDTO {
    * @example 'myapp.com'
    */
     @IsOptional()
+    @ApiHideProperty()
     appUrl: string;
 
     /**
@@ -39,6 +43,7 @@ export class NotificationDTO {
      * @example 'myuser@example.com'
      */
     @IsOptional()
+    @ApiHideProperty()
     user: string;
 
     /**
@@ -50,14 +55,17 @@ export class NotificationDTO {
     @IsString()
     key: string;
 
+    @ApiHideProperty()
     dateCreated: Date;
 
+    @ApiHideProperty()
     dateUpdated: Date;
 
     /**
      * The language that the notification should be displayed
      * @example 'pt-br'
      */
+    @ApiHideProperty()
     language: string;
 
     /**
@@ -66,6 +74,7 @@ export class NotificationDTO {
    */
     content: string;
 
+    @ApiHideProperty()
     read: boolean = false;
 
     setRead(){
@@ -129,5 +138,21 @@ export class NotificationDTO {
         this.language = notification.language;
         return this;
 
+    }
+
+    static schemaToDto(arg0: any): NotificationDTO {
+        let n = new NotificationDTO();
+        n.app = arg0.app;
+        n.appUrl = arg0.appUrl;
+        n.content = arg0.content;
+        n.key = arg0.key;
+        n.read = arg0.read;
+        n.dateCreated = arg0.dateCreated;
+        n.dateUpdated = arg0.dateUpdated;
+        n.id = arg0._id?.toString();
+        n.user = arg0.user;
+        n.title = arg0.title;
+        n.language = arg0.language;        
+        return n;
     }
 }

@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { NotificationModule } from './notification/notification.module';
 import { HttpHandler } from './httpHandler';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -18,14 +18,17 @@ async function bootstrap() {
     cert: fs.readFileSync(path.join(appDirectory, process.env.CERTIFICATE)),
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
+  const app2 = await NestFactory.create(NotificationModule, { httpsOptions })
   app.useGlobalPipes(new ValidationPipe());
 
   const environment = process.env.NODE_ENV || 'development';
   Logger.print(`Starting application as ${environment} mode!`);
   if (environment === 'development') {
     setupSwaggerDev(app); // Use dev Swagger configuration
+    setupSwaggerDev(app2);
   } else {
     setupSwaggerPrd(app); // Use prd Swagger configuration
+    setupSwaggerPrd(app2);
   }
 
   app.enableCors({

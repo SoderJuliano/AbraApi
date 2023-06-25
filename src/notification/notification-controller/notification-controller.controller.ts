@@ -3,7 +3,7 @@ import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
 import { NotificationRequest } from './dtos/request.notification.dto';
-import { NotificationDeleteRequest } from './request.delete.notification';
+import { NotificationDeleteRequest } from './dtos/request.delete.notification';
 
 @Controller('notifications')
 @ApiTags('Notification')
@@ -75,7 +75,7 @@ export class NotificationControllerController {
   }
 
   /**
-   * 
+   * Delete a single notification by id with validators
    * @param request NotificationDeleteRequest
    * @returns Json Object
    */

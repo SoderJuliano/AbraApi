@@ -13,7 +13,6 @@ export class AdminMiddleware implements NestMiddleware {
 
     Logger.print(`Incoming request for admin route from ${req.headers.referer}`);
     Logger.print(`Called in ${req.protocol}://${req.get('Host')}${req.originalUrl}`);
-    
     if (MD5(token).toString() !== process.env.TOKEN) {
       Logger.printWarn(
         `Token not matching. The token I got was ${token}`,

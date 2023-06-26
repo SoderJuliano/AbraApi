@@ -81,7 +81,11 @@ export class NotificationService {
     async deleteNotification(request: NotificationDeleteRequest): Promise<Object> {
         this.validator.idIsValid(request.id);
         Logger.print(`Deleting Notification for id: ${request.id}`);
-        const dto: NotificationDTO = NotificationDTO.schemaToDto((await this.notificationModel.findById(request.id).exec()).toObject());
+        const document = await this.notificationModel.findById(request.id).exec();
+        
+        if(!document){this.throwBadRequest(`Not found Notification for id: ${request.id}`)}
+
+        const dto: NotificationDTO = NotificationDTO.schemaToDto((document).toObject());
         
         if(!this.shouldDelete(dto, request)){
             this.throwBadRequest('Tried to delete Notification with invalid informations');

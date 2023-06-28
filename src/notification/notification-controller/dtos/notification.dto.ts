@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { NotificationDocument } from "../../schema/notification.schema"
 import { ApiHideProperty } from "@nestjs/swagger";
+import { combineLatest } from "rxjs";
 export class NotificationDTO {
          
     /**
@@ -107,6 +108,36 @@ export class NotificationDTO {
 
     getContent(){
         return this.content;
+    }
+
+    setApp(app: string){
+        if(app){
+            this.app = app
+        }
+    }
+
+    setAppUrl(appUrl: string){
+        if(appUrl){
+            this.appUrl = appUrl
+        }
+    }
+
+    setLanguage(language: string){
+        if(language){
+            this.language = language
+        }
+    }
+
+    setUser(user: string){
+        if(user){
+            this.user = user
+        }
+    }
+
+    setContent(content: string){
+        if(content){
+            this.content = content
+        }
     }
 
     dtoToDto(newn: NotificationDTO){

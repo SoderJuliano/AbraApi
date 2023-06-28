@@ -128,8 +128,36 @@ export class NotificationService {
         }
     }
 
+    private async editNotification(request: NotificationDTO): Promise<NotificationDTO> {
+        
+        this.validator.idIsValid(request.id);
+
+        let notification: NotificationDTO = this.findModel(request);
+        notification.setDataAtualizacao(); 
+        notification.setApp(request.app);
+        notification.setAppUrl(request.appUrl);
+        notification.setLanguage(request.language);
+        notification.setUser(request.user);
+        notification.setContent(request.content);
+
+        this.notificationModel.updateOne({id: notification.id}, {$set: notification})
+        
+        return notification;
+    }
+
     private throwBadRequest(message: string){
         Logger.printError(message);
         throw new BadRequestException(message);
+    }
+
+    private findModel(request: NotificationDTO): NotificationDTO {
+        const model = this.notificationModel.findById(request.id);
+        const dto = NotificationDTO.schemaToDto(model);
+
+        if (request.id !== dto.id || request.key !== dto.key) {
+            this.throwBadRequest(`Key and id do not match.`);
+        }
+
+        return dto;
     }
 }

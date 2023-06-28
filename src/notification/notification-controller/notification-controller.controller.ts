@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
@@ -82,6 +82,11 @@ export class NotificationControllerController {
   @Delete('/delete')
   deleteNotification(@Body() request: NotificationDeleteRequest): Promise<Object> {
     return this.service.deleteNotification(request);
+  }
+
+  @Put("/edit")
+  editNotification(@Body() notification: NotificationDTO): Promise<NotificationDTO> {
+    return this.service.editNotification(notification);
   }
 
 }

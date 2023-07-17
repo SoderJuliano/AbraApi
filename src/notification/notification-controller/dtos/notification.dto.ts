@@ -171,8 +171,9 @@ export class NotificationDTO {
 
     }
 
-    static schemaToDto(arg0: any): NotificationDTO {
+    static anyToDto(arg0: any): NotificationDTO {
         let n = new NotificationDTO();
+        const id = arg0.id ? arg0.id : arg0._id?.toString();
         n.app = arg0.app;
         n.appUrl = arg0.appUrl;
         n.content = arg0.content;
@@ -180,10 +181,11 @@ export class NotificationDTO {
         n.read = arg0.read;
         n.dateCreated = arg0.dateCreated;
         n.dateUpdated = arg0.dateUpdated;
-        n.id = arg0._id?.toString();
+        n.id = id
         n.user = arg0.user;
         n.title = arg0.title;
-        n.language = arg0.language;        
+        n.language = arg0.language;   
         return n;
     }
+    
 }

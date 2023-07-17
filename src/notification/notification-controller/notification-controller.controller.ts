@@ -3,6 +3,7 @@ import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
 import { NotificationRequest } from './dtos/request.notification.dto';
+import { NotificationRequestDTO } from './dtos/notification.request';
 import { NotificationDeleteRequest } from './dtos/request.delete.notification';
 
 @Controller('notifications')
@@ -85,8 +86,8 @@ export class NotificationControllerController {
   }
 
   @Put("/edit")
-  editNotification(@Body() notification: NotificationDTO): Promise<NotificationDTO> {
-    return this.service.editNotification(notification);
+  editNotification(@Body() notification: NotificationRequestDTO): Promise<NotificationDTO> {
+    return this.service.editNotification(NotificationDTO.anyToDto(notification), notification.id);
   }
 
 }

@@ -7,6 +7,7 @@ import { NotificationDocument } from '../schema/notification.schema';
 import { NotificationRequest } from '../notification-controller/dtos/request.notification.dto';
 import { Validator } from 'src/utils/validator';
 import { NotificationDeleteRequest } from '../notification-controller/dtos/request.delete.notification';
+import { NotificationRequestDTO } from '../notification-controller/dtos/notification.request';
 
 @Injectable()
 export class NotificationService {
@@ -64,7 +65,7 @@ export class NotificationService {
         await notification.updateOne({ read: true, dateUpdated: new Date(Date.now()) }).exec();
         let notificationUpdated = await this.notificationModel.findById(id).exec();
         Logger.print(`Notification updated ${JSON.stringify(notificationUpdated)}`);
-        return NotificationDTO.schemaToDto(notificationUpdated);
+        return NotificationDTO.anyToDto(notificationUpdated);
     }
 
     async getHello(): Promise<{ content: string }> {
@@ -85,7 +86,7 @@ export class NotificationService {
         
         if(!document){this.throwBadRequest(`Not found Notification for id: ${request.id}`)}
 
-        const dto: NotificationDTO = NotificationDTO.schemaToDto((document).toObject());
+        const dto: NotificationDTO = NotificationDTO.anyToDto((document).toObject());
         
         if(!this.shouldDelete(dto, request)){
             this.throwBadRequest('Tried to delete Notification with invalid informations');
@@ -94,7 +95,7 @@ export class NotificationService {
         return this.deleteById(request.id)
     }
 
-    async editNotification(request: NotificationDTO): Promise<NotificationDTO> {
+    async editNotification(request: NotificationDTO, id:string): Promise<NotificationDTO> {
         
         this.validator.idIsValid(request.id);
 
@@ -154,7 +155,7 @@ export class NotificationService {
 
     private async findModel(request: NotificationDTO): Promise<NotificationDTO> {
         const model = await this.notificationModel.findById(request.id);
-        const dto: NotificationDTO = NotificationDTO.schemaToDto((model).toObject());
+        const dto: NotificationDTO = NotificationDTO.anyToDto((model).toObject());
         console.log(JSON.stringify(dto))
         if (request.key !== dto.key) {
             this.throwBadRequest(`Key do not match: ${request.key}`);

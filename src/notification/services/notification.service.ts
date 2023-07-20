@@ -8,6 +8,7 @@ import { NotificationRequest } from '../notification-controller/dtos/request.not
 import { Validator } from 'src/utils/validator';
 import { NotificationDeleteRequest } from '../notification-controller/dtos/request.delete.notification';
 import { NotificationRequestDTO } from '../notification-controller/dtos/notification.request';
+import { Log } from 'src/utils/print-enuns';
 
 @Injectable()
 export class NotificationService {
@@ -101,16 +102,21 @@ export class NotificationService {
 
         let notification: NotificationDTO = await this.findModel(request);
         
-        console.log(notification)
         notification.setApp(request.app);
         notification.setAppUrl(request.appUrl);
         notification.setLanguage(request.language);
         notification.setUser(request.user);
         notification.setContent(request.content);
+        notification.setTitle(request.title)
         notification.setDataAtualizacao(); 
 
-        this.notificationModel.updateOne({id: notification.id}, {$set: notification})
-        
+        try{
+            await this.notificationModel.findByIdAndUpdate(notification.id, notification);
+            Logger.print(`Notification ${notification.id} updated succesfully.`)
+        }catch(error){
+            Logger.printError(`An error ocurred when trying update an object with the id ${notification.id}. [Error]: ${error}`);
+        }
+
         return notification;
     }
 
@@ -156,7 +162,6 @@ export class NotificationService {
     private async findModel(request: NotificationDTO): Promise<NotificationDTO> {
         const model = await this.notificationModel.findById(request.id);
         const dto: NotificationDTO = NotificationDTO.anyToDto((model).toObject());
-        console.log(JSON.stringify(dto))
         if (request.key !== dto.key) {
             this.throwBadRequest(`Key do not match: ${request.key}`);
         }

@@ -81,6 +81,10 @@ export class NotificationDTO {
     setRead(){
         this.read = true;
     }
+
+    setTitle(newTitle: string){
+        this.title = newTitle;
+    }
  
     setDataCriacao(){
         this.dateCreated = new Date(Date.now());

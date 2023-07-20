@@ -13,7 +13,7 @@ export class NotificationDeleteRequest {
 
     user: string;
 
-    url: string;
+    appUrl: string;
     
     @ApiProperty()
     @IsString()
@@ -21,7 +21,7 @@ export class NotificationDeleteRequest {
 
     constructor(user: string, url: string, key: string, id: string) {
         this.user = user;
-        this.url = url;
+        this.appUrl = url;
         this.key = key;
         this.id = id;
     }

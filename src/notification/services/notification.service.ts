@@ -129,7 +129,7 @@ export class NotificationService {
             return false;
         }
 
-        if (dto.appUrl && request.url !== dto.appUrl) {
+        if (dto.appUrl && request.appUrl !== dto.appUrl) {
             return false;
         }
 
@@ -160,12 +160,16 @@ export class NotificationService {
     }
 
     private async findModel(request: NotificationDTO): Promise<NotificationDTO> {
-        const model = await this.notificationModel.findById(request.id);
-        const dto: NotificationDTO = NotificationDTO.anyToDto((model).toObject());
-        if (request.key !== dto.key) {
-            this.throwBadRequest(`Key do not match: ${request.key}`);
+        try{
+            const model = await this.notificationModel.findById(request.id);
+            const dto: NotificationDTO = NotificationDTO.anyToDto((model).toObject());
+            if (request.key !== dto.key) {
+                this.throwBadRequest(`Key do not match: ${request.key}`);
+            }
+            return dto;
+        }catch(error){
+            this.throwBadRequest("No notification found!")
+            Logger.printError(error);
         }
-
-        return dto;
     }
 }

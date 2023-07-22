@@ -7,8 +7,6 @@ import { NotificationDocument } from '../schema/notification.schema';
 import { NotificationRequest } from '../notification-controller/dtos/request.notification.dto';
 import { Validator } from 'src/utils/validator';
 import { NotificationDeleteRequest } from '../notification-controller/dtos/request.delete.notification';
-import { NotificationRequestDTO } from '../notification-controller/dtos/notification.request';
-import { Log } from 'src/utils/print-enuns';
 
 @Injectable()
 export class NotificationService {

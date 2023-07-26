@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../services/notification.service';
 import { NotificationDTO } from './dtos/notification.dto';
-import { RecoverNotificationDTO } from './dtos/recover.notification.dto';
 import { NotificationRequest } from './dtos/request.notification.dto';
+import { NotificationRequestDTO } from './dtos/notification.request';
+import { NotificationDeleteRequest } from './dtos/request.delete.notification';
 
 @Controller('notifications')
 @ApiTags('Notification')
@@ -15,7 +16,7 @@ export class NotificationControllerController {
    * @returns Returns an hello with data and time :)
    */
   @Get('/hello')
-  getHello(): Promise<{ message: string }> {
+  getHello(): Promise<{ content: string }> {
     return this.service.getHello();
   }
 
@@ -72,6 +73,21 @@ export class NotificationControllerController {
     @Body() notification: NotificationDTO,
   ): Promise<NotificationDTO> {
     return this.service.createNotification(notification);
+  }
+
+  /**
+   * Delete a single notification by id with validators
+   * @param request NotificationDeleteRequest
+   * @returns Json Object
+   */
+  @Delete('/delete')
+  deleteNotification(@Body() request: NotificationDeleteRequest): Promise<Object> {
+    return this.service.deleteNotification(request);
+  }
+
+  @Put("/edit")
+  editNotification(@Body() notification: NotificationRequestDTO): Promise<NotificationDTO> {
+    return this.service.editNotification(NotificationDTO.anyToDto(notification), notification.id);
   }
 
 }

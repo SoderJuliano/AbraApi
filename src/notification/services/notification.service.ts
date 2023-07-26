@@ -2,10 +2,10 @@ import { BadRequestException, Injectable, InternalServerErrorException, NotFound
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotificationDTO } from '../notification-controller/dtos/notification.dto';
-import { Logger } from 'src/utils/logger';
+import { Logger } from '../../utils/logger';
 import { NotificationDocument } from '../schema/notification.schema';
 import { NotificationRequest } from '../notification-controller/dtos/request.notification.dto';
-import { Validator } from 'src/utils/validator';
+import { Validator } from '../../utils/validator';
 import { NotificationDeleteRequest } from '../notification-controller/dtos/request.delete.notification';
 
 @Injectable()

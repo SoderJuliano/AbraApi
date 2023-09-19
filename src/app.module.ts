@@ -5,6 +5,8 @@ import { NotificationModule } from './notification/notification.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Notificationchema } from './notification/schema/notification.schema';
 import { AdminMiddleware } from './utils/adminMidleware';
+import { KafkaModule } from './kafka/kafka.module';
+import { KafkaConsumerService } from './kafka.consumer/kafka.consumer.service';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -17,9 +19,10 @@ dotenv.config();
       { name: 'notification', schema: Notificationchema },
     ]),
     NotificationModule,
+    KafkaModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, KafkaConsumerService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

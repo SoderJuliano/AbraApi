@@ -5,9 +5,7 @@ import { ProducerService } from './producer.service';
 import { KafkaService } from './kafka.service';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-  ],
+  imports: [ConfigModule.forRoot()],
   controllers: [KafkaController],
   providers: [KafkaService, ProducerService],
 })

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { KafkaService } from './kafka.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -10,5 +10,10 @@ export class KafkaController {
   @Get('/create')
   createMessage(): Promise<string> {
     return this.kafkaService.createKafkaMessage();
+  }
+
+  @Get('/consume/topic/:topic')
+  consumeTopic(@Param('topic') topic: string): Promise<any> {
+    return this.kafkaService.consumeKafkaTopic(topic);
   }
 }

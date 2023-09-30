@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -56,13 +57,13 @@ export class NotificationService {
     async readNotification(id: string): Promise<NotificationDTO> {
         this.validator.idIsValid(id);
         Logger.print(`Reading Notification for id: ${id}`);
-        let notification = await this.notificationModel.findById(id).exec();
+        const notification = await this.notificationModel.findById(id).exec();
         if (notification == null) {
             Logger.printError(`Could not find notification with id: ${id}`);
             throw new NotFoundException(`Not found such notification with id: ${id}`);
         }
         await notification.updateOne({ read: true, dateUpdated: new Date(Date.now()) }).exec();
-        let notificationUpdated = await this.notificationModel.findById(id).exec();
+        const notificationUpdated = await this.notificationModel.findById(id).exec();
         Logger.print(`Notification updated ${JSON.stringify(notificationUpdated)}`);
         return NotificationDTO.anyToDto(notificationUpdated);
     }

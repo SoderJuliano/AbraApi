@@ -1,7 +1,7 @@
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Message } from 'kafkajs';
-import { KafkaProducer } from './kafka-producer';
+import { KafkaHandler } from './kafka-handler';
 import { IProducer } from './kafka.interface';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class ProducerService implements OnApplicationShutdown {
   private async getProducer(topic: string) {
     let producer = this.producers.get(topic);
     if (!producer) {
-      producer = new KafkaProducer(
+      producer = new KafkaHandler(
         topic,
         this.configService.get('KAFKA_BROKER'),
       );

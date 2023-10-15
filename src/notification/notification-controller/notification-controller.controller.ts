@@ -12,7 +12,7 @@ export class NotificationControllerController {
   constructor(private readonly service: NotificationService) {}
 
   /**
-   * 
+   *
    * @returns Returns an hello with data and time :)
    */
   @Get('/hello')
@@ -34,7 +34,7 @@ export class NotificationControllerController {
 
   /**
    * Retrive one or many notifications with optional parameters
-   * 
+   *
    */
   @Get('/retrieve')
   @ApiQuery({

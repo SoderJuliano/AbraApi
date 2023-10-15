@@ -39,7 +39,7 @@ export class KafkaHandler implements IProducer {
 
   //CONSUMMER KAFKA
 
-  async consume(topic: string) {
+  /*  async consume(topic: string) {
     const consumer = this.kafka.consumer({ groupId: 'abra-app' });
 
     await consumer.connect();
@@ -75,5 +75,5 @@ export class KafkaHandler implements IProducer {
       },
     });
     return messages;
-  }
+  } */
 }

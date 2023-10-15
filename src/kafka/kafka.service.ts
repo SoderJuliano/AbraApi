@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { ProducerService } from './producer.service';
 import { KafkaHandler } from './kafka-handler';
+import { NotificationDTO } from 'src/notification/notification-controller/dtos/notification.dto';
 
 @Injectable()
 export class KafkaService {
   constructor(private readonly producerService: ProducerService) {}
-  kafka = new KafkaHandler('abra-api', '0.0.0.0:9092');
 
-  async createKafkaMessage() {
+  async createKafkaMessage(notification: NotificationDTO) {
     // Conecte-se ao Kafka antes de produzir a mensagem
-    await this.kafka.connect();
+    const kafka = new KafkaHandler(notification.key, '0.0.0.0:9092');
+    await kafka.connect();
 
     try {
-      await this.kafka.produce('hello world');
+      await kafka.produce(notification.toString());
       return 'worked';
     } catch (error) {
       // Lide com erros de produção aqui, se necessário
@@ -20,12 +21,12 @@ export class KafkaService {
       return 'error';
     } finally {
       // Certifique-se de desconectar após o uso
-      await this.kafka.disconnect();
+      await kafka.disconnect();
     }
     return 'worked';
   }
 
-  async consumeKafkaTopic(topic: string): Promise<any> {
+  /* async consumeKafkaTopic(topic: string): Promise<any> {
     return await this.kafka.consumeTopic(topic);
-  }
+  } */
 }

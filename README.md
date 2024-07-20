@@ -345,3 +345,42 @@ A AbraAPI é uma API poderosa para o registro e envio de notificações em siste
 <b>Para maiores informações consulte nossa documentação no Swagger https://abra-api.top/api</b>
 
 ----
+
+
+### Running the Project
+#### To run the project, follow these steps:
+
+Clone the repository.
+Install the dependencies by running npm install.
+Set up the environment variables by creating a .env file in the root directory and adding the required variables.
+Start the server by running npm start.
+Environment Variables
+The following environment variables are required to run the project:
+
+NODE_ENV: The environment in which the project is running (e.g., development, production).
+PORT: The port on which the server should listen.
+MONGO_URI: The MongoDB connection string.
+JWT_SECRET: The secret key for generating JSON Web Tokens.
+Versions
+The following versions are used in the project:
+
+Node.js: 14.21.3
+NestJS: 8.0.0
+MongoDB: 4.4.12
+Installation
+To install the project dependencies, run the following command:
+
+
+Insert in Terminal
+npm install
+Running Locally
+
+To run the project locally, follow these steps:
+
+Set up the environment variables by creating a .env file in the root directory and adding the required variables.
+
+add the file dev.env in the root folder
+add the certificates files inside the src folder
+add private.key inside src as well
+
+Start the server by running npm start.

@@ -1,3 +1,4 @@
+import { EmailModule } from './email/email.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,6 +11,7 @@ dotenv.config();
 
 @Module({
   imports: [
+    EmailModule,
     MongooseModule.forRoot(process.env.MONGO_URI, {
       dbName: process.env.DB_NAME,
     }),

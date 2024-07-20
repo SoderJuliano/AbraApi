@@ -24,7 +24,6 @@ export class AppController {
       Logger.printError(err.message);
       throw new BadRequestException(err.message);
     }
-    
   }
 
 }

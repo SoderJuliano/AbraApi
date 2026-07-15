@@ -21,10 +21,13 @@ export class HttpHandler {
         }
 
         app.enableCors({
-         origin: '*',
-         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
-         allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
-        });
+            origin: '*',
+            methods: ['GET','HEAD','PATCH','POST','DELETE', 'OPTIONS'],
+            allowedHeaders: ['access-control-allow-headers','access-control-allow-methods','access-control-allow-origin', 'X-Requested-With', 'X-HTTP-Method-Override', 'Content-Type', 'Accept'],
+            preflightContinue: false,
+            optionsSuccessStatus: 204,
+            credentials: true
+         });
         await app.listen(3001);
     }
 }

@@ -33,7 +33,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: '*',
-    methods: ['GET','HEAD','PATCH','POST','DELETE'],
+    methods: ['GET','HEAD','PATCH','POST','DELETE', 'OPTIONS'],
     allowedHeaders: ['access-control-allow-headers','access-control-allow-methods','access-control-allow-origin', 'X-Requested-With', 'X-HTTP-Method-Override', 'Content-Type', 'Accept'],
     preflightContinue: false,
     optionsSuccessStatus: 204,

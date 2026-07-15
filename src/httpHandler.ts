@@ -22,7 +22,7 @@ export class HttpHandler {
 
         app.enableCors({
             origin: '*',
-            methods: ['GET','HEAD','PATCH','POST','DELETE', 'OPTIONS'],
+            methods: ['GET','HEAD','PATCH','POST','DELETE', 'PUT', 'OPTIONS'],
             allowedHeaders: ['access-control-allow-headers','access-control-allow-methods','access-control-allow-origin', 'X-Requested-With', 'X-HTTP-Method-Override', 'Content-Type', 'Accept'],
             preflightContinue: false,
             optionsSuccessStatus: 204,

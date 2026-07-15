@@ -20,7 +20,11 @@ export class HttpHandler {
           setupSwaggerPrd(app); // Use prd Swagger configuration
         }
 
-        app.enableCors();
+        app.enableCors({
+         origin: '*',
+         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+         allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+        });
         await app.listen(3001);
     }
 }

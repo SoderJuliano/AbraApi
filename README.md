@@ -361,6 +361,7 @@ NODE_ENV: The environment in which the project is running (e.g., development, pr
 PORT: The port on which the server should listen.
 MONGO_URI: The MongoDB connection string.
 JWT_SECRET: The secret key for generating JSON Web Tokens.
+RESEND_API_KEY_LOOKUP_KEY: The key used to retrieve the Resend API key from `/notifications/retrieve` (for example, `apikeyresend`). The Resend API key itself remains in the notification content and is cached in memory until the server restarts.
 Versions
 The following versions are used in the project:
 

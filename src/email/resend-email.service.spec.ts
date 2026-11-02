@@ -50,13 +50,13 @@ describe('ResendEmailService', () => {
     expect(Resend).toHaveBeenCalledTimes(1);
     expect(Resend).toHaveBeenCalledWith('re_test_api_key');
     expect(mockSend).toHaveBeenNthCalledWith(1, {
-      from: 'onboarding@resend.dev',
+      from: 'noreply@abra-api.top',
       to: 'recipient@example.com',
       subject: 'Subject',
       text: 'Hello',
     });
     expect(mockSend).toHaveBeenNthCalledWith(2, {
-      from: 'onboarding@resend.dev',
+      from: 'noreply@abra-api.top',
       to: 'recipient@example.com',
       subject: 'HTML subject',
       html: '<p>Hello</p>',

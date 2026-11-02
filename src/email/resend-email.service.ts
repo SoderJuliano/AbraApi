@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { Resend } from 'resend';
 
-const RESEND_FROM_ADDRESS = 'onboarding@resend.dev';
+const RESEND_FROM_ADDRESS = 'noreply@abra-api.top';
 
 @Injectable()
 export class ResendEmailService {
